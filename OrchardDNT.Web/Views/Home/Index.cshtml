@@ -1,0 +1,18 @@
+﻿@model OrchardDNT.Core.Models.User
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>Welcome @Model.Username !</h2>
+</div>
+
+
+
+@*<div id="busycycle" style="display:none; width:25%;"><img width="25%" src="~/Content/images/giphy-downsized.gif" /></div>*@
+
+<div class="row">
+    <div id="recentPostsDiv" class="col-md-12">
+        @{Html.RenderAction("LoadPosts");}
+    </div>
+</div>

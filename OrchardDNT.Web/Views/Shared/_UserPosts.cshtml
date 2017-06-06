@@ -1,0 +1,53 @@
+﻿@model OrchardDNT.Web.Models.UserPostListViewModel
+@{ 
+    var anyPostsToShow = Model.Posts.Count() > 0;
+}
+
+@if (!anyPostsToShow)
+{
+    <div class="row">        
+        <div class="col-md-12">
+            No more posts
+        </div>
+    </div>
+
+    @Ajax.ActionLink(
+    "Most Recent",
+    "LoadPosts",
+    "Home",
+    new { skip = 0, take = 5 },
+    new AjaxOptions()
+    {
+        UpdateTargetId = "recentPostsDiv",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "busycycle"
+    });
+}
+else
+{
+    foreach (var post in Model.Posts)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @post.Title
+            </div>
+            <div class="col-md-8">
+                @post.Body
+            </div>
+        </div>
+    }
+
+    @Ajax.ActionLink(
+    "Older Posts",
+    "LoadPosts",
+    "Home",
+    new { skip = Model.Page.Skip + 5, take = 5 },
+    new AjaxOptions()
+    {
+        UpdateTargetId = "recentPostsDiv",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "busycycle"
+    });
+}
+
+
